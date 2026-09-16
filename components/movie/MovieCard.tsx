@@ -1,18 +1,37 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { Heart, Star } from "lucide-react";
 
 import { Movie } from "@/types/movie";
 import { getImageUrl } from "@/lib/utils";
+import { useFavoriteStore } from "@/store/favorites";
 
 interface MovieCardProps {
   movie: Movie;
 }
 
 const MovieCard = ({ movie }: MovieCardProps) => {
+  const {
+  addFavorite,
+  removeFavorite,
+  isFavorite,
+  hasHydrated,
+} = useFavoriteStore();
+
+const favorite =
+  hasHydrated && isFavorite(movie.id);
+
+const handleFavorite = () => {
+  if (favorite) {
+    removeFavorite(movie.id);
+  } else {
+    addFavorite(movie);
+  }
+};
   return (
-    <div className="group w-52 overflow-hidden rounded-xl bg-card shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
-      <div className="relative h-72 overflow-hidden">
+   <div className="group w-full overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+      <div className="relative h-[285px] overflow-hidden">
         <Image
           src={getImageUrl(movie.poster_path)}
           alt={movie.title}
@@ -25,32 +44,41 @@ const MovieCard = ({ movie }: MovieCardProps) => {
 
         {/* Favourite */}
         <button
-          className="absolute right-3 top-3 rounded-full bg-white/20 p-2 text-white opacity-0 backdrop-blur transition-all duration-300 group-hover:opacity-100 hover:bg-red-500"
+          onClick={handleFavorite}
+          className={`absolute right-3 top-3 rounded-full p-2 backdrop-blur transition-all duration-300
+            ${
+              favorite
+                ? "bg-red-500 text-white opacity-100"
+                : "bg-white/20 text-white opacity-0 group-hover:opacity-100 hover:bg-red-500"
+            }`}
         >
-          <Heart size={18} />
+          <Heart
+            size={18}
+            className={favorite ? "fill-white" : ""}
+          />
         </button>
 
         {/* View Details */}
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 translate-y-6 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 translate-y-6 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
           <Link
             href={`/movies/${movie.id}`}
-            className="rounded-full bg-white px-5 py-2 text-sm font-medium text-black hover:bg-gray-200"
+            className="inline-flex items-center justify-center rounded-full border border-white bg-white/10 px-8 py-3 text-sm font-semibold text-white backdrop-blur-md transition-all duration-300 hover:bg-white hover:text-black"
           >
             View Details
           </Link>
         </div>
       </div>
 
-      <div className="space-y-2 p-4">
-        <h3 className="truncate text-lg font-semibold">
+      <div className="space-y-2 p-3">
+        <h3 className="truncate text-base font-semibold text-gray-900">
           {movie.title}
         </h3>
 
-        <div className="flex items-center justify-between text-sm text-muted-foreground">
+        <div className="flex items-center justify-between text-sm text-gray-500">
           <span className="flex items-center gap-1">
-            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+            <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
             {movie.vote_average.toFixed(1)}
-          </span>
+          </span>Step 4
 
           <span>
             {new Date(movie.release_date).getFullYear()}
