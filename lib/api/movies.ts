@@ -8,7 +8,9 @@ export const getTrendingMovies = async (): Promise<Movie[]> => {
         Authorization: `Bearer ${process.env.TMDB_API_READ_ACCESS_TOKEN}`,
         accept: "application/json",
       },
-      cache: "no-store", // for development
+      next: {
+        revalidate: 3600,
+      }
     }
   );
 
@@ -29,7 +31,9 @@ export const getMovieDetails = async (id: string) => {
         Authorization: `Bearer ${process.env.TMDB_API_READ_ACCESS_TOKEN}`,
         accept: "application/json",
       },
-      cache: "no-store",
+      next: {
+        revalidate: 3600,
+      }
     }
   );
 
@@ -48,7 +52,9 @@ export const getMovieCredits = async (id: string) => {
         Authorization: `Bearer ${process.env.TMDB_API_READ_ACCESS_TOKEN}`,
         accept: "application/json",
       },
-      cache: "no-store",
+      next: {
+        revalidate: 3600,
+      }
     }
   );
 
@@ -66,7 +72,9 @@ export const getSimilarMovies = async (id: string) => {
         Authorization: `Bearer ${process.env.TMDB_API_READ_ACCESS_TOKEN}`,
         accept: "application/json",
       },
-      cache: "no-store",
+      next: {
+        revalidate: 3600,
+      }
     }
   );
 
@@ -87,7 +95,9 @@ export const getPopularMovies = async (): Promise<Movie[]> => {
         Authorization: `Bearer ${process.env.TMDB_API_READ_ACCESS_TOKEN}`,
         accept: "application/json",
       },
-      cache: "no-store",
+      next: {
+        revalidate: 3600,
+      }
     }
   );
 
@@ -108,7 +118,9 @@ export const getTopRatedMovies = async (): Promise<Movie[]> => {
         Authorization: `Bearer ${process.env.TMDB_API_READ_ACCESS_TOKEN}`,
         accept: "application/json",
       },
-      cache: "no-store",
+      next: {
+        revalidate: 3600,
+      }
     }
   );
 
@@ -129,7 +141,9 @@ export const getMovieTrailer = async (id: string) => {
         Authorization: `Bearer ${process.env.TMDB_API_READ_ACCESS_TOKEN}`,
         accept: "application/json",
       },
-      cache: "no-store",
+      next: {
+        revalidate: 3600,
+      }
     }
   );
 
@@ -149,4 +163,23 @@ export const getMovieTrailer = async (id: string) => {
   );
 
   return trailer;
+};
+
+export const searchMovies = async (
+  query: string
+): Promise<Movie[]> => {
+  if (!query.trim()) {
+    return [];
+  }
+
+  const response = await fetch(
+    `/api/search?query=${encodeURIComponent(query)}`
+  );
+
+  if (!response.ok) {
+    console.error(await response.text());
+    return [];
+  }
+
+  return response.json();
 };

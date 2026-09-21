@@ -21,11 +21,7 @@ const CastSection = ({ cast }: CastSectionProps) => {
           >
             <div className="relative h-60">
               <Image
-                src={
-                  actor.profile_path
-                    ? getImageUrl(actor.profile_path)
-                    : "/placeholder-person.png"
-                }
+                src={getImageUrl(actor.profile_path)}
                 alt={actor.name}
                 fill
                 className="object-cover"

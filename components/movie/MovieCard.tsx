@@ -77,11 +77,15 @@ const handleFavorite = () => {
         <div className="flex items-center justify-between text-sm text-gray-500">
           <span className="flex items-center gap-1">
             <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
-            {movie.vote_average.toFixed(1)}
+            {movie.vote_average
+            ? movie.vote_average.toFixed(1)
+            : "N/A"}
           </span>Step 4
 
           <span>
-            {new Date(movie.release_date).getFullYear()}
+            {movie.release_date
+                  ? new Date(movie.release_date).getFullYear()
+                  : "N/A"}
           </span>
         </div>
       </div>

@@ -10,18 +10,33 @@ import Footer from "@/components/layout/Footer";
 
 export default async function Home() {
   const movies = await getTrendingMovies();
-  const [trendingMovies, popularMovies, topRatedMovies] =
-  await Promise.all([
-    getTrendingMovies(),
-    getPopularMovies(),
-    getTopRatedMovies(),
-  ]);
+  const results = await Promise.allSettled([
+  getTrendingMovies(),
+  getPopularMovies(),
+  getTopRatedMovies(),
+]);
 
-const heroMovie = trendingMovies[0];
+const trending =
+  results[0].status === "fulfilled"
+    ? results[0].value
+    : [];
 
-const trailer = await getMovieTrailer(
-  heroMovie.id.toString()
-);
+const popular =
+  results[1].status === "fulfilled"
+    ? results[1].value
+    : [];
+
+const topRated =
+  results[2].status === "fulfilled"
+    ? results[2].value
+    : [];
+
+const heroMovie = trending[0];
+
+  const trailer = heroMovie
+    ? await getMovieTrailer(heroMovie.id.toString())
+    : null;
+    
   return (
     <main className="space-y-12">
       <HomeHero movie={movies[0]} />
@@ -32,12 +47,12 @@ const trailer = await getMovieTrailer(
 
       <TrendingSection
         title="Popular Movies"
-        movies={popularMovies}
+        movies={popular}
       />
 
       <TrendingSection
         title="Top Rated Movies"
-        movies={topRatedMovies}
+        movies={topRated}
       />
       <Footer />
     </main>
