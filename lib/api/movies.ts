@@ -1,4 +1,5 @@
 import { Movie } from "@/types/movie";
+import { Genre } from "@/types/genre";
 
 export const getTrendingMovies = async (): Promise<Movie[]> => {
   const response = await fetch(
@@ -10,7 +11,7 @@ export const getTrendingMovies = async (): Promise<Movie[]> => {
       },
       next: {
         revalidate: 3600,
-      }
+      },
     }
   );
 
@@ -179,6 +180,40 @@ export const searchMovies = async (
   if (!response.ok) {
     console.error(await response.text());
     return [];
+  }
+
+  return response.json();
+};
+
+export const getGenres = async (): Promise<Genre[]> => {
+  const response = await fetch("/api/genres");
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch genres");
+  }
+
+  return response.json();
+};
+
+export const getMoviesByGenre = async (
+  genreId: number
+) => {
+  const response = await fetch(
+    `/api/genres/${genreId}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch movies");
+  }
+
+  return response.json();
+};
+
+export const getTrendingMoviesClient = async (): Promise<Movie[]> => {
+  const response = await fetch("/api/trending");
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch trending movies");
   }
 
   return response.json();

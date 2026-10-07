@@ -6,27 +6,82 @@ import SearchBar from "@/components/search/SearchBar";
 import GenreFilter from "@/components/search/GenreFilter";
 import SearchResults from "@/components/search/SearchResults";
 
-import { searchMovies } from "@/lib/api/movies";
 import { Movie } from "@/types/movie";
+import { Genre } from "@/types/genre";
+
+import {
+  searchMovies,
+  getGenres,
+  getMoviesByGenre,
+  getTrendingMoviesClient,
+} from "@/lib/api/movies";
+
+import useDebounce from "@/hooks/useDebounce";
+
 
 export default function SearchPage() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [genres, setGenres] = useState<Genre[]>([]);
+  const [selectedGenre, setSelectedGenre] =
+    useState<number | null>(null);
+
+  const [trendingMovies, setTrendingMovies] = useState<Movie[]>([]);  
+
+  const debouncedQuery = useDebounce(query, 500);
 
   useEffect(() => {
-    if (!query.trim()) return;
+    const loadGenres = async () => {
+      try {
+        const data = await getGenres();
+        setGenres(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
+    loadGenres();
+  }, []);
+
+  useEffect(() => {
+    const loadTrending = async () => {
+      const data = await getTrendingMoviesClient();
+      setTrendingMovies(data);
+    };
+
+    loadTrending();
+  }, []);
+
+  useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const results = await searchMovies(query);
-        setMovies(results);
+        if (debouncedQuery.trim()) {
+          const data = await searchMovies(debouncedQuery);
+          setMovies(data);
+          return;
+        }
+
+        if (selectedGenre !== null) {
+          const data = await getMoviesByGenre(
+            selectedGenre
+          );
+          setMovies(data);
+          return;
+        }
+
+        setMovies([]);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchMovies();
-  }, [query]);
+  }, [debouncedQuery, selectedGenre]);
+
+  const displayedMovies =
+    query.trim() || selectedGenre !== null
+      ? movies
+      : trendingMovies;
 
   return (
     <main className="space-y-10">
@@ -42,15 +97,30 @@ export default function SearchPage() {
         value={query}
         onChange={(value) => {
           setQuery(value);
-          if (!value.trim()) {
+
+          if (value.trim()) {
+            setSelectedGenre(null);
+          }
+
+          if (!value.trim() && selectedGenre === null) {
             setMovies([]);
           }
         }}
       />
 
-      <GenreFilter />
+      <GenreFilter
+        genres={genres}
+        selectedGenre={selectedGenre}
+        onSelect={(id) => {
+          setSelectedGenre(id);
 
-      <SearchResults movies={movies} />
+          if (id !== null) {
+            setQuery("");
+          }
+        }}
+      />
+
+      <SearchResults movies={displayedMovies} />
     </main>
   );
 }

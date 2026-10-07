@@ -1,32 +1,46 @@
 "use client";
 
-const genres = [
-  "Action",
-  "Adventure",
-  "Comedy",
-  "Drama",
-  "Fantasy",
-  "Animation",
-  "Crime",
-  "Family",
-  "Romance",
-  "Sci-Fi",
-  "Thriller",
-];
+import { Genre } from "@/types/genre";
 
-const GenreFilter = () => {
+interface Props {
+  genres: Genre[];
+  selectedGenre: number | null;
+  onSelect: (id: number | null) => void;
+}
+
+export default function GenreFilter({
+  genres,
+  selectedGenre,
+  onSelect,
+}: Props) {
   return (
     <div className="flex flex-wrap gap-3">
+      <button
+        onClick={() => onSelect(null)}
+        className={`rounded-full border px-5 py-2 transition
+        ${
+          selectedGenre === null
+            ? "bg-indigo-600 border-indigo-600 text-white"
+            : "bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700"
+        }`}
+      >
+        All
+      </button>
+
       {genres.map((genre) => (
         <button
-          key={genre}
-          className="rounded-full border border-slate-700 bg-slate-900 px-5 py-2 text-sm text-white transition hover:border-indigo-500 hover:bg-indigo-600"
+          key={genre.id}
+          onClick={() => onSelect(genre.id)}
+          className={`rounded-full border px-5 py-2 transition
+          ${
+            selectedGenre === genre.id
+              ? "bg-indigo-600 border-indigo-600 text-white"
+              : "bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700"
+          }`}
         >
-          {genre}
+          {genre.name}
         </button>
       ))}
     </div>
   );
-};
-
-export default GenreFilter;
+}
