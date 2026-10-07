@@ -30,7 +30,7 @@ const Hero = ({ movie, trailer }: HeroProps) => {
         {movie.title}
       </h1>
 
-      <div className="mb-5 flex items-center gap-5 text-lg text-gray-200">
+      <div className="mb-5 flex items-center gap-5 text-lg text-white/80">
         <span className="flex items-center gap-1">
           ⭐ {movie.vote_average.toFixed(1)}
         </span>
@@ -38,7 +38,7 @@ const Hero = ({ movie, trailer }: HeroProps) => {
         <span>{movie.release_date?.split("-")[0]}</span>
       </div>
 
-      <p className="mb-8 max-w-xl text-lg leading-8 text-gray-200">
+      <p className="mb-8 max-w-xl text-lg leading-8 text-white/80">
         {movie.overview}
       </p>
 

@@ -8,7 +8,7 @@ interface SimilarMoviesProps {
 const SimilarMovies = ({ movies }: SimilarMoviesProps) => {
   return (
     <section className="space-y-6">
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         Similar Movies
       </h2>
 

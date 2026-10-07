@@ -33,11 +33,6 @@ export const navigationItems = [
 
 export const bottomNavigationItems = [
   {
-    icon: Moon,
-    label: "Dark Mode",
-    route: "#",
-  },
-  {
     icon: User,
     label: "Profile",
     route: "/profile",

@@ -42,8 +42,8 @@ export default async function MovieDetails({
 
   if (!movie) {
     return (
-      <main className="flex min-h-screen items-center justify-center bg-[#020817] text-white">
-        <h1 className="text-2xl font-semibold">
+      <main className="flex min-h-screen items-center justify-center bg-background">
+        <h1 className="text-2xl font-semibold text-foreground">
           Movie details are currently unavailable.
         </h1>
       </main>
@@ -51,7 +51,7 @@ export default async function MovieDetails({
   }
 
   return (
-    <main className="min-h-screen space-y-12 bg-[#020817] p-6">
+    <main className="min-h-screen space-y-12 bg-background p-6">
       <MovieDetailsHero movie={movie} />
       <CastSection cast={credits.cast} />
       <SimilarMovies movies={similarMovies} />

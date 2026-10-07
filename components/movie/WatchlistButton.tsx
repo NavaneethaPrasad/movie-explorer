@@ -32,11 +32,10 @@ const WatchlistButton = ({ movie }: WatchlistButtonProps) => {
   return (
     <Button
       onClick={handleClick}
-      variant="outline"
-      className={`h-12 rounded-lg border px-8 transition-all duration-300 ${
+      className={`h-12 rounded-lg border px-8 text-white transition-all duration-300 ${
         inWatchlist
-          ? "border-green-500 bg-green-600 text-white hover:bg-green-700 hover:text-white"
-          : "border-white/50 bg-white/10 text-white hover:bg-white hover:text-black"
+          ? "border-green-500 bg-green-600 hover:bg-green-700"
+          : "border-white/40 bg-white/10 hover:bg-white/20"
       }`}
     >
       <Bookmark

@@ -9,11 +9,11 @@ export default function WatchlistPage() {
   if (!hasHydrated) {
     return (
       <main className="space-y-8 p-6">
-        <h1 className="text-4xl font-bold text-white">
+        <h1 className="text-4xl font-bold text-foreground">
           Watchlist
         </h1>
 
-        <p className="text-slate-400">
+        <p className="text-muted-foreground">
           Loading...
         </p>
       </main>
@@ -22,19 +22,19 @@ export default function WatchlistPage() {
 
   return (
     <main className="space-y-8 p-6">
-      <h1 className="text-4xl font-bold text-white">
+      <h1 className="text-4xl font-bold text-foreground">
         Watchlist
       </h1>
 
       {watchlist.length > 0 ? (
         <MovieGrid movies={watchlist} />
       ) : (
-        <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-dashed border-slate-700">
-          <p className="text-lg text-slate-400">
+        <div className="flex h-64 flex-col items-center justify-center rounded-xl border border-dashed border-border bg-card">
+          <p className="text-lg text-foreground">
             Your watchlist is empty.
           </p>
 
-          <p className="mt-2 text-sm text-slate-500">
+          <p className="mt-2 text-sm text-muted-foreground">
             Add movies from the details page to watch later.
           </p>
         </div>

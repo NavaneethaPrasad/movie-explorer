@@ -86,7 +86,7 @@ export default function SearchPage() {
   return (
     <main className="space-y-10">
       <div>
-        <h1 className="mb-2 text-4xl font-bold">Search Movies</h1>
+        <h1 className="mb-2 text-4xl font-bold text-foreground">Search Movies</h1>
 
         <p className="text-muted-foreground">
           Search your favorite movies or browse by genre.

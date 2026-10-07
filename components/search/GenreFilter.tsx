@@ -20,8 +20,8 @@ export default function GenreFilter({
         className={`rounded-full border px-5 py-2 transition
         ${
           selectedGenre === null
-            ? "bg-indigo-600 border-indigo-600 text-white"
-            : "bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700"
+            ? "bg-primary border-primary text-primary-foreground"
+            : "bg-card border-border text-muted-foreground hover:bg-accent hover:text-accent-foreground"
         }`}
       >
         All
@@ -34,8 +34,8 @@ export default function GenreFilter({
           className={`rounded-full border px-5 py-2 transition
           ${
             selectedGenre === genre.id
-              ? "bg-indigo-600 border-indigo-600 text-white"
-              : "bg-slate-800 border-slate-700 text-slate-300 hover:bg-slate-700"
+              ? "bg-primary border-primary text-primary-foreground"
+              : "bg-card border-border text-muted-foreground hover:bg-accent hover:text-accent-foreground"
           }`}
         >
           {genre.name}

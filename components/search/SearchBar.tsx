@@ -14,13 +14,13 @@ const SearchBar = ({
 }: SearchBarProps) => {
   return (
     <div className="relative max-w-2xl">
-      <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+      <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
 
       <Input
       value={value}
       onChange={(e) => onChange(e.target.value)}
       placeholder="Search movies..."
-      className="h-14 rounded-full border border-slate-600 bg-[#0f172a] pl-12 text-white placeholder:text-slate-400 focus:border-indigo-500"
+      className="h-14 rounded-full border-border bg-background pl-12 text-foreground placeholder:text-muted-foreground focus:border-indigo-500"
     />
     </div>
   );

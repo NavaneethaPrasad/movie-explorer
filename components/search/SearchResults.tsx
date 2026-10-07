@@ -11,7 +11,7 @@ const SearchResults = ({
   if (movies.length === 0) {
     return (
       <div className="py-20 text-center">
-        <p className="text-slate-400">
+        <p className="text-muted-foreground">
           Search for a movie to see results.
         </p>
       </div>

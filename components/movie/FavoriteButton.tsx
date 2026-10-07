@@ -31,10 +31,10 @@ const FavoriteButton = ({ movie }: FavoriteButtonProps) => {
   return (
     <Button
       onClick={handleClick}
-      className={`h-12 rounded-lg px-8 ${
+      className={`h-12 rounded-lg px-8 text-white transition-all duration-300 ${
         favorite
           ? "bg-red-600 hover:bg-red-700"
-          : "bg-indigo-600 hover:bg-indigo-700"
+          : "border border-white/40 bg-white/10 hover:bg-white/20"
       }`}
     >
       <Heart

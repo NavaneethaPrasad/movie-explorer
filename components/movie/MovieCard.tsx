@@ -30,7 +30,7 @@ const handleFavorite = () => {
   }
 };
   return (
-   <div className="group w-full overflow-hidden rounded-2xl bg-white shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+   <div className="group w-full overflow-hidden rounded-2xl border border-border bg-card shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:ring-1 hover:ring-border">
       <div className="relative h-[285px] overflow-hidden">
         <Image
           src={getImageUrl(movie.poster_path)}
@@ -70,17 +70,17 @@ const handleFavorite = () => {
       </div>
 
       <div className="space-y-2 p-3">
-        <h3 className="truncate text-base font-semibold text-gray-900">
+        <h3 className="truncate text-base font-semibold text-foreground">
           {movie.title}
         </h3>
 
-        <div className="flex items-center justify-between text-sm text-gray-500">
+        <div className="flex items-center justify-between text-sm text-muted-foreground">
           <span className="flex items-center gap-1">
             <Star className="h-3.5 w-3.5 fill-yellow-400 text-yellow-400" />
             {movie.vote_average
             ? movie.vote_average.toFixed(1)
             : "N/A"}
-          </span>Step 4
+          </span>
 
           <span>
             {movie.release_date

@@ -26,7 +26,7 @@ const MovieDetailsHero = ({ movie }: MovieDetailsHeroProps) => {
 
         <div className="relative z-10 flex h-full items-center gap-10 px-10">
           {/* Poster */}
-          <div className="relative hidden h-[380px] w-[260px] overflow-hidden rounded-xl shadow-2xl md:block">
+          <div className="relative hidden h-[380px] w-[260px] overflow-hidden rounded-xl border border-border shadow-2xl md:block">
             <Image
               src={getImageUrl(movie.poster_path)}
               alt={movie.title}
@@ -65,7 +65,7 @@ const MovieDetailsHero = ({ movie }: MovieDetailsHeroProps) => {
                 {movie.genres.map((genre) => (
                   <span
                     key={genre.id}
-                    className="rounded-full bg-white/10 px-4 py-2 text-sm backdrop-blur"
+                    className="rounded-full bg-white/10 px-4 py-2 text-sm text-white backdrop-blur"
                   >
                     {genre.name}
                   </span>

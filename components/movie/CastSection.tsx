@@ -9,7 +9,7 @@ interface CastSectionProps {
 const CastSection = ({ cast }: CastSectionProps) => {
   return (
     <section className="space-y-6">
-      <h2 className="text-3xl font-bold text-white">
+      <h2 className="text-3xl font-bold text-foreground">
         Cast
       </h2>
 
@@ -17,7 +17,7 @@ const CastSection = ({ cast }: CastSectionProps) => {
         {cast.slice(0, 12).map((actor) => (
           <div
             key={actor.id}
-            className="overflow-hidden rounded-xl bg-slate-900 transition hover:-translate-y-1"
+            className="overflow-hidden rounded-xl border border-border bg-card transition hover:-translate-y-1 hover:shadow-lg"
           >
             <div className="relative h-60">
               <Image
@@ -29,11 +29,11 @@ const CastSection = ({ cast }: CastSectionProps) => {
             </div>
 
             <div className="p-3">
-              <h3 className="truncate font-semibold text-white">
+              <h3 className="truncate font-semibold text-foreground">
                 {actor.name}
               </h3>
 
-              <p className="truncate text-sm text-gray-400">
+              <p className="truncate text-sm text-muted-foreground">
                 {actor.character}
               </p>
             </div>
